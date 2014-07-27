@@ -6,6 +6,9 @@
   <link href="/complosphere/assets/sourcesanspro.css" rel="stylesheet" type="text/css" />
   <link href="/complosphere/assets/styles.css" rel="stylesheet" type="text/css" />
   <link rel="stylesheet" href="/complosphere/font-awesome-4.1.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="//code.jquery.com/ui/1.11.0/themes/smoothness/jquery-ui.css">
+  <script src="//code.jquery.com/jquery-1.10.2.js"></script>
+  <script src="//code.jquery.com/ui/1.11.0/jquery-ui.js"></script>
   <style type="text/css" media="screen">
   html, body {
     font: 24px/150% "Source Sans Pro", sans-serif;
@@ -27,58 +30,32 @@
 <div id="sigma-container">
   <div id="controls" class="bg">
     <h1>La complosphère française</h1>    
-<!----    <h2><a target='_blank' href='http://parltrack.euwiki.org/committee/CULT' title='Go to Parltrack committee page (new window)'>Culture and Education</a></h2> 
-
-    <p>
-      Committee&nbsp;&nbsp;
-      <a href="?co=AFCO" title='Constitutional Affairs' class=''>AFCO</a>&nbsp;&nbsp;
-      <a href="?co=AFET" title='Foreign Affairs'  class=''>AFET</a>&nbsp;&nbsp;
-      <a href="?co=AGRI" title='Agriculture and Rural Development'  class=''>AGRI</a>&nbsp;&nbsp;
-      <a href="?co=BUDG" title='Budgets'  class=''>BUDG</a>&nbsp;&nbsp;
-      <a href="?co=CONT" title='Budgetary Control'  class=''>CONT</a>&nbsp;&nbsp;
-      <a href="?co=CRIM" title='Organised crime, corruption and money laundering'  class=''>CRIM</a>&nbsp;&nbsp;
-      <a href="?co=CRIS" title='Financial, Economic and Social Crisis'  class=''>CRIS</a>&nbsp;&nbsp;
-      <a href="?co=CULT" title='Culture and Education'  class='here'>CULT</a>&nbsp;&nbsp;
-      <a href="?co=DEVE" title='Development'  class=''>DEVE</a>&nbsp;&nbsp;
-      <a href="?co=DROI" title='Human Rights'  class=''>DROI</a>&nbsp;&nbsp;
-      <a href="?co=ECON" title='Economic and Monetary Affairs'  class=''>ECON</a>&nbsp;&nbsp;
-      <a href="?co=EMPL" title='Employment and Social Affairs'  class=''>EMPL</a>&nbsp;&nbsp;
-      <a href="?co=ENVI" title='Environment, Public Health and Food Safety'  class=''>ENVI</a>&nbsp;&nbsp;
-      <a href="?co=FEMM" title='Women's Rights and Gender Equality'  class=''>FEMM</a>&nbsp;&nbsp;
-      <a href="?co=IMCO" title='Internal Market and Consumer Protection'  class=''>IMCO</a>&nbsp;&nbsp;
-      <a href="?co=INTA" title='International Trade'  class=''>INTA</a>&nbsp;&nbsp;
-      <a href="?co=ITRE" title='Industry, Research and Energy'  class=''>ITRE</a>&nbsp;&nbsp;
-      <a href="?co=JURI" title='Legal Affairs'  class=''>JURI</a>&nbsp;&nbsp;
-      <a href="?co=LIBE" title='Civil Liberties, Justice and Home Affairs'  class=''>LIBE</a>&nbsp;&nbsp;
-      <a href="?co=PECH" title='Fisheries'  class=''>PECH</a>&nbsp;&nbsp;
-      <a href="?co=PETI" title='Petitions'  class=''>PETI</a>&nbsp;&nbsp;
-      <a href="?co=REGI" title='Regional Development'  class=''>REGI</a>&nbsp;&nbsp;
-      <a href="?co=SEDE" title='Security and Defence'  class=''>SEDE</a>&nbsp;&nbsp;
-      <a href="?co=SURE" title='Policy Challenges'  class=''>SURE</a>&nbsp;&nbsp;
-      <a href="?co=TRAN" title='Transport and Tourism'  class=''>TRAN</a>
-    </p>
---->
 <p></p>
 <p></p>
 <p></p>
 <p></p>
 <p></p>
     <p>
-      Cliquez sur un point pour montrer un sous-réseau. Double-cliquez pour (dé)zoomer.<br>
-      Cacher&nbsp;
+      Cliquez sur un point pour montrer un sous-réseau. Les nœuds colorés en rouge correspondent aux sites possédant des liens vers le site sélectionné.<br>
+      Cacher :<BR/>
       <label title="Ne pas dessiner les liens.">
         <input type="checkbox" id="showEdges" />
-        les liens
+        les liens<BR/>
       </label>
-      &nbsp;
       <label title="Ne pas ajouter d'étiquettes en zoomant.">
         <input type="checkbox" id="showLabels" />
-        les étiquettes
+        les étiquettes<BR/>
       </label>
-      &nbsp;
       <label title="Ne dessiner des liens que lorsque l'association est particulièrement forte.">
-        <input type="checkbox" id="showSparse" checked />
-        les liens faibles
+        <input type="checkbox" id="showSparse"/>
+        les liens faibles<BR/>
+      </label>
+      <BR/>
+      <label for="nodesSize">Taille des points : </label><BR/>
+        <input type="radio" name="nodesSize" id="indegree" value="indegree"  />Nombre de liens entrants<BR/>
+        <input type="radio" name="nodesSize" id="outdegree" value="outdegree"  />Nombre de liens sortants<BR/>
+        <input type="radio" name="nodesSize" id="alexa" value="alexa" checked/>Classement de fréquentation (alexa.com)<BR/>
+        <input type="radio" name="nodesSize" id="pagerank" value="pageranl"  />Classement Pagerank (influence au sein du réseau)<BR/>
       </label>
       <br>
 <p></p>
@@ -87,8 +64,13 @@
         <p>Données collectées par les crawlers <a href="http://www.uberlink.com/services">VOSON</a> et <a href="http://www.medialab.sciences-po.fr/fr/tools/hyphe/">Hyphe</a>.<br />
           Photo de fond par <a href="https://www.flickr.com/photos/kt/97895608/in/photolist-5nJ9RX-4ZBKhb-65i1j-f71eHv-7P3Z1B-7dEYab-cweK7b-5SsokS-drvJN-mD8Fc-eeR1YL-9DJXj-a8Uvgi-5EprrJ-7RHcQ-3eTNzC-5SsbME-8P8Uzi-5BLrnP-crZvfw-aNhDFP-4QxQey-739QVh-cB2ZdA-5E8WCV-86tFtA-jqDQvt-fQ7ok2-5165Rj-dXUT1b-6etRv8-5Hjz4M-c8Bruq-bKpSmB-B8euZ-5BLrrF-59Xs7g-fBGaW-5iSJXf-511TwP-5166dq-huk5U-9KL31C-511TkD-7vHfMD-7vHfMT-fBL764-7c2V27-epteAg-rfP7w/">Kevin Trotman</a> (Flickr).</p>
     </footer>
-    <div id="graph-container"></div>
+  <div id="graph-container"></div>
   </div>
+   <script>
+  $(function() {
+    $( "#caption" ).draggable();
+  });
+  </script>
   <div id="caption" class="bg">
     <p>Ce graphique montre le réseau des sites de la complosphère française. Nous n'impliquons pas que chacun de ces sites diffuse des contenus conspirationnistes ; mais tous sont caractérisés par le fait qu'ils reçoivent et envoient des liens vers d'autres sites appartenant à la même sphère. Le choix des sites présentés n'est donc pas aléatoire, mais relève d'une logique algorithmique avec vérification humaine.</p><p>Ce travail a été réalisé par <a href="http://www.joelgombin.fr">Joël Gombin</a>, en partenariat avec <a href="http://www.conspiracywatch.info">Conspiracy Watch</a> et pour le compte de <a href="http://www.counterpoint.uk.com">Counterpoint</a>. </p>  </div>
 
@@ -143,14 +125,14 @@ sigma.classes.graph.addMethod('getNeighborsCount', function(nodeId) {
 });
 
 sigma.parsers.gexf(
-  'reseau2.gexf',
+  'reseauJuillet2014.gexf',
   { // Here is the ID of the DOM element that
     // will contain the graph:
     container: 'sigma-container'
   },
   function(s) {
     
-    console.log('reseau2.gexf')
+//    console.log('reseauJuillet2014.gexf')
       
     // We first need to save the original colors of our
     // nodes and edges, like this:
@@ -161,9 +143,9 @@ sigma.parsers.gexf(
     });
     s.graph.edges().forEach(function(e) {
       e.originalColor = e.color;
-      e.type = 'arrow';
+      e.type = 'line';
     });
-
+    
     // When a node is clicked, we check for each node
     // if it is a neighbor of the clicked one. If not,
     // we set its color as grey, and else, it takes its
@@ -179,14 +161,14 @@ sigma.parsers.gexf(
         if (toKeep[n.id])
           n.color = '#E61616';
         else
-          n.color = n.originalColor;
+          n.color = '#d8d8d8';
       });
 
       s.graph.edges().forEach(function(e) {
         if (toKeep[e.source] && toKeep[e.target])
           e.color = e.originalColor;
         else
-          e.color = '#D8D8D8';
+          e.color = '#fafafa';
       });
 
       // node color
@@ -195,11 +177,18 @@ sigma.parsers.gexf(
       profile = "<a href='http://" + e.data.node.attributes['url'] + "' title='Voir le site (nouvelle fenêtre)' target='_blank'>";
       // parltrack = "<a href='http://parltrack.euwiki.org/mep/" + e.data.node.attributes['label'] + "' title='Go to Parltrack profile (new window)' target='_blank'";
       
-      document.getElementById('caption').innerHTML =  profile + ' </a> <p>' + profile + e.data.node.attributes['url'] + '</a></p> <span style="color:' + rgba.replace('0.3)', '1)') + ';"></span><p>Thèmes : ' + e.data.node.attributes['themes'] + '</p><p>Description : ' + e.data.node.attributes['description'] + '</p><p>Ressources :' + e.data.node.attributes['ressources'] +  '</p><p><a href="http://' + e.data.node.attributes['url'] + '" class="button"" style="width: 125px; margin:1.25em 0; float:none;" title="Voir le site (nouvelle fenêtre)" target="_blank">Voir le site</a>&nbsp;&nbsp; </p>';
+      theme = (e.data.node.attributes['themes'] === "") ? '' : '<p>Thèmes : ' + e.data.node.attributes['themes'] + '</p>';
+      
+      description = (e.data.node.attributes['description'] === "") ? '' : '<p>Description : ' + e.data.node.attributes['description'] + '</p>';
+      
+      ressources = (e.data.node.attributes['ressources'] === "") ? '' : '<p>Ressources : ' + e.data.node.attributes['ressources'] +  '</p>';
+      
+      document.getElementById('caption').innerHTML =  profile + ' </a> <h2>' + e.data.node.attributes['url'] + '</h2> <span style="color:' + rgba.replace('0.3)', '1)') + ';"></span>' + theme + description + ressources;
       
       // Since the data has been modified, we need to
       // call the refresh method to make the colors
       // update effective.
+      e.color = '#000000';
       s.refresh();
     });
 
@@ -221,14 +210,14 @@ sigma.parsers.gexf(
     });
     
     s.settings({
-      defaultEdgeColor: '#555',
+      defaultEdgeColor: '#555555',
       edgeColor: 'source',
       minNodeSize: 2,
-      maxNodeSize: 6,
+      maxNodeSize: 10,
       defaultLabelColor: '#fff',
       defaultLabelSize: 18,
       font: "source sans pro",
-      minEdgeSize: .3,
+      minEdgeSize: .1,
       maxEdgeSize: .9,
       labelHoverBGColor: 'node',
       defaultLabelHoverColor: '#fff',
@@ -277,37 +266,76 @@ sigma.parsers.gexf(
       if (e.target.checked) {
         s.graph.edges().forEach(function(e) {
           // use upper quartile marker
-          if(e.weight > 1)
+          if(e.weight > 20)
             e.color = 'rgba(66,66,66,0)';
         });
         s.settings({
           minEdgeSize: .1,
-          maxEdgeSize: 3
+          maxEdgeSize: 5
         });
       } else {
         s.graph.edges().forEach(function(e) {
           e.color = e.originalColor;
         });
         s.settings({
-          minEdgeSize: .5,
+          minEdgeSize: .1,
           maxEdgeSize: 1,
         });
       }
       s.refresh();
     }); 
-        
+    
+    // change bubble size 
+    document.getElementById('indegree').addEventListener('change', 
+    function(e){
+      if (e.target.checked) {
+        s.graph.nodes().forEach(function(n) {
+            n.size = n.attributes['indegree'];
+        });
+      }
+      s.refresh();
+    });
+    document.getElementById('alexa').addEventListener('change', 
+    function(e){
+      if (e.target.checked) {
+        s.graph.nodes().forEach(function(n) {
+            n.size = n.attributes['alexa'];
+        });
+      }
+      s.refresh();
+    });
+    document.getElementById('outdegree').addEventListener('change', 
+    function(e){
+      if (e.target.checked) {
+        s.graph.nodes().forEach(function(n) {
+            n.size = n.attributes['outdegree'];
+        });
+      }
+      s.refresh();
+    });
+    document.getElementById('pagerank').addEventListener('change', 
+    function(e){
+      if (e.target.checked) {
+        s.graph.nodes().forEach(function(n) {
+            n.size = n.attributes['pagerank'];
+        });
+      }
+      s.refresh();
+    });
+
+    
     // force atlas
     //
-    document.getElementById('toggle-layout').addEventListener('click', 
-    function() {
-      if ((s.forceatlas2 || {}).isRunning) {
-        s.stopForceAtlas2();
-        document.getElementById('toggle-layout').innerHTML = 'Animate';
-      } else {
-        s.startForceAtlas2();
-        document.getElementById('toggle-layout').innerHTML = 'Stop';
-      }
-    });
+//    document.getElementById('toggle-layout').addEventListener('click', 
+//    function() {
+//      if ((s.forceatlas2 || {}).isRunning) {
+//        s.stopForceAtlas2();
+//        document.getElementById('toggle-layout').innerHTML = 'Animate';
+//      } else {
+//        s.startForceAtlas2();
+//        document.getElementById('toggle-layout').innerHTML = 'Stop';
+//      }
+//    });
     
     // reset zoom
     document.getElementById('recenter-camera').addEventListener('click', 
