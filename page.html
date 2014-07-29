@@ -61,7 +61,7 @@
 <p></p>
 <p><a href="https://twitter.com/intent/tweet?original_referer=https%3A%2F%2Fabout.twitter.com%2Ffr%2Fresources%2Fbuttons&text=La%20complosph%C3%A8re%20fran%C3%A7aise%2C&tw_p=tweetbutton&url=http%3A%2F%2Fwww.joelgombin.fr%2Fcomplosphere%2Fpage.html&via=joelgombin" class="button" title="Partager sur Twitter."><i class="fa fa-twitter"></i> Tweeter</a>&nbsp;&nbsp;<a href="https://github.com/joelgombin/complosphere" class="button" title="Récupérer le code et les données sur GitHub."><i class="fa fa-github"></i> Code</a></p>
     <footer>
-        <p>Données collectées par les crawlers <a href="http://www.uberlink.com/services">VOSON</a> et <a href="http://www.medialab.sciences-po.fr/fr/tools/hyphe/">Hyphe</a>.<br />
+        <p>Données collectées en juillet 2014 par les crawlers <a href="http://www.uberlink.com/services">VOSON</a> et <a href="http://www.medialab.sciences-po.fr/fr/tools/hyphe/">Hyphe</a>. Kudos to François Briatte pour <a href='http://briatte.org/epam/'>son inspiration</a>.<br />
           Photo de fond par <a href="https://www.flickr.com/photos/kt/97895608/in/photolist-5nJ9RX-4ZBKhb-65i1j-f71eHv-7P3Z1B-7dEYab-cweK7b-5SsokS-drvJN-mD8Fc-eeR1YL-9DJXj-a8Uvgi-5EprrJ-7RHcQ-3eTNzC-5SsbME-8P8Uzi-5BLrnP-crZvfw-aNhDFP-4QxQey-739QVh-cB2ZdA-5E8WCV-86tFtA-jqDQvt-fQ7ok2-5165Rj-dXUT1b-6etRv8-5Hjz4M-c8Bruq-bKpSmB-B8euZ-5BLrrF-59Xs7g-fBGaW-5iSJXf-511TwP-5166dq-huk5U-9KL31C-511TkD-7vHfMD-7vHfMT-fBL764-7c2V27-epteAg-rfP7w/">Kevin Trotman</a> (Flickr).</p>
     </footer>
   <div id="graph-container"></div>
@@ -72,7 +72,7 @@
   });
   </script>
   <div id="caption" class="bg">
-    <p>Ce graphique montre le réseau des sites de la complosphère française. Nous n'impliquons pas que chacun de ces sites diffuse des contenus conspirationnistes ; mais tous sont caractérisés par le fait qu'ils reçoivent et envoient des liens vers d'autres sites appartenant à la même sphère. Le choix des sites présentés n'est donc pas aléatoire, mais relève d'une logique algorithmique avec vérification humaine.</p><p>Ce travail a été réalisé par <a href="http://www.joelgombin.fr">Joël Gombin</a>, en partenariat avec <a href="http://www.conspiracywatch.info">Conspiracy Watch</a> et pour le compte de <a href="http://www.counterpoint.uk.com">Counterpoint</a>. </p>  </div>
+    <p>Ce graphique montre le réseau des sites de la complosphère française. Nous n'impliquons pas que chacun de ces sites diffuse des contenus conspirationnistes ; mais tous sont caractérisés par le fait qu'ils reçoivent et envoient des liens vers d'autres sites appartenant à la même sphère. Le choix des sites présentés n'est donc pas aléatoire, mais relève d'une logique algorithmique avec vérification humaine. La coloration des points n'a pas de signification particulière, elle ne relève que de l'esthétique.</p><p>Ce travail a été réalisé par <a href="http://www.joelgombin.fr">Joël Gombin</a>, en partenariat avec <a href="http://www.conspiracywatch.info">Conspiracy Watch</a> et pour le compte de <a href="http://www.counterpoint.uk.com">Counterpoint</a>. </p>  </div>
 
 </div>
 
@@ -112,7 +112,7 @@ if (!Math.round10) {
 sigma.classes.graph.addMethod('neighbors', function(nodeId) {
   var k,
       neighbors = {},
-      index = this.allNeighborsIndex[nodeId] || {};
+      index = this.inNeighborsIndex[nodeId] || {};
 
   for (k in index)
     neighbors[k] = this.nodesIndex[k];
@@ -121,7 +121,7 @@ sigma.classes.graph.addMethod('neighbors', function(nodeId) {
 });
 
 sigma.classes.graph.addMethod('getNeighborsCount', function(nodeId) {
-  return this.allNeighborsCount[nodeId];
+  return this.inNeighborsCount[nodeId];
 });
 
 sigma.parsers.gexf(
@@ -165,9 +165,10 @@ sigma.parsers.gexf(
       });
 
       s.graph.edges().forEach(function(e) {
-        if (toKeep[e.source] && toKeep[e.target])
-          e.color = e.originalColor;
-        else
+//        if (toKeep[e.source] && toKeep[e.target])
+//        if (toKeep[e.target])
+//          e.color = e.originalColor;
+//        else
           e.color = '#fafafa';
       });
 
@@ -213,7 +214,7 @@ sigma.parsers.gexf(
       defaultEdgeColor: '#555555',
       edgeColor: 'source',
       minNodeSize: 2,
-      maxNodeSize: 10,
+      maxNodeSize: 7,
       defaultLabelColor: '#fff',
       defaultLabelSize: 18,
       font: "source sans pro",
