@@ -9,6 +9,8 @@
   <link rel="stylesheet" href="//code.jquery.com/ui/1.11.0/themes/smoothness/jquery-ui.css">
   <script src="//code.jquery.com/jquery-1.10.2.js"></script>
   <script src="//code.jquery.com/ui/1.11.0/jquery-ui.js"></script>
+ <!----- <script type="text/javascript" src="http://jcml.fr/~jacomyal/osdc2012-demo/js/external/jquery.min.js"></script> ---->
+  <script type="text/javascript" src="http://jcml.fr/~jacomyal/osdc2012-demo/js/external/jquery.smart_autocomplete.min.js"></script>
   <style type="text/css" media="screen">
   html, body {
     font: 24px/150% "Source Sans Pro", sans-serif;
@@ -20,6 +22,37 @@
     height: 100%;
     font-size: 12px;
   }
+  
+    /* smart autocomplete */
+  .smart_autocomplete_container ul {
+    margin: 0;
+    padding: 0;
+  }
+  .smart_autocomplete_container li {
+    width: 100%;
+    font-size: 90%;
+    list-style-type: none;
+    padding: 2px;
+    margin: 0;
+    background: #aaa;
+    color: #333;
+  }
+  .smart_autocomplete_container li:hover {
+    background: #ff9;
+  }
+  
+  /* search field */
+  #search-nodes-fieldset { border-color: transparent; }
+  #search-nodes-fieldset label { padding-right: 1em; }
+  #search-nodes-fieldset input {
+    min-width: 200px;
+    min-height: 18px;
+    background: #fff;
+    border: 1px solid white;
+    padding: 0.25em;
+    color: #333 ;
+    font-size: 90%;
+  }
   </style>
   <!--[if lt IE 8]>
     <link rel="stylesheet" href="/assets/stylesheets/social_foundicons_ie7.css">
@@ -30,9 +63,6 @@
 <div id="sigma-container">
   <div id="controls" class="bg">
     <h1>La complosphère française</h1>    
-<p></p>
-<p></p>
-<p></p>
 <p></p>
 <p></p>
     <p>
@@ -58,6 +88,12 @@
         <input type="radio" name="nodesSize" id="pagerank" value="pageranl"  />Classement Pagerank (influence au sein du réseau)<BR/>
       </label>
       <br>
+      <!-- Here is the user search field -->
+      <form action="/" method="post" class="search-nodes-form">
+        <fieldset id="search-nodes-fieldset">
+          <div></div>
+        </fieldset>
+      </form>
 <p></p>
 <p><a href="https://twitter.com/intent/tweet?original_referer=https%3A%2F%2Fabout.twitter.com%2Ffr%2Fresources%2Fbuttons&text=La%20complosph%C3%A8re%20fran%C3%A7aise%2C&tw_p=tweetbutton&url=http%3A%2F%2Fwww.joelgombin.fr%2Fcomplosphere%2Fpage.html&via=joelgombin" class="button" title="Partager sur Twitter."><i class="fa fa-twitter"></i> Tweeter</a>&nbsp;&nbsp;<a href="https://github.com/joelgombin/complosphere" class="button" title="Récupérer le code et les données sur GitHub."><i class="fa fa-github"></i> Code</a></p>
     <footer>
@@ -339,16 +375,77 @@ sigma.parsers.gexf(
 //    });
     
     // reset zoom
-    document.getElementById('recenter-camera').addEventListener('click', 
-    function() {
-      s.cameras[0].goTo({
-                x: 0,
-                y: 0,
-                angle: 0,
-                ratio: 1
-              });
+//    document.getElementById('recenter-camera').addEventListener('click', 
+//    function() {
+//      s.cameras[0].goTo({
+//                x: 0,
+//                y: 0,
+//                angle: 0,
+//                ratio: 1
+//              });
+//    });
+   
+   $sig = new Array();
+    s.graph.nodes().forEach(function(n) {
+      $sig.push(n.label);
     });
     
+    function onAction() {
+      // Make all nodes unactive:
+      s.graph.nodes().forEach(function(n) {
+        n.color = "black";
+      });
+    }
+    
+    $('#search-nodes-fieldset > div').remove();
+    $('<div>' +
+        '<label for="search-nodes">' +
+          'Chercher un site :' +
+        '</label>' +
+        '<input type="text" autocomplete="off" id="search-nodes"/>' +
+      '</div>').appendTo('#search-nodes-fieldset');
+
+    $('#search-nodes-fieldset #search-nodes').smartAutoComplete({
+      source: s.graph.nodes().map(function(n){
+        return n.label;
+      })
+    }).bind('itemSelect', function(e) {
+      var label = e.smartAutocompleteData.item.innerText;
+      // onAction();
+      console.log(label);
+
+      var id = "unknown";
+      s.graph.nodes().forEach(function(n) {
+        if (n.label == label) {
+          id = n.id;
+        }
+      });
+      
+      console.log(id);
+
+      s.graph.nodes().forEach(function(n) {
+        if (n.label == label ) {
+          console.log('found');
+          n.color = '#E61616';
+        }
+        else
+          n.color = '#bbb';
+      });
+
+      s.graph.edges().forEach(function(e) {
+        if (e.source == id | e.target == id)
+          e.color = e.originalColor;
+        else {
+          // console.log(e.source);
+          e.color = '#333';
+        }
+      });
+
+      s.refresh();
+      
+    });
+   
+   
   }
 );
 </script>
