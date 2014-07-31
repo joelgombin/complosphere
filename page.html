@@ -66,7 +66,8 @@
 <p></p>
 <p></p>
     <p>
-      Cliquez sur un point pour montrer un sous-réseau. Les nœuds colorés en rouge correspondent aux sites possédant des liens vers le site sélectionné.<br>
+      Cliquez sur un point pour montrer un sous-réseau. Les nœuds colorés en rouge correspondent aux sites possédant des liens vers le site sélectionné.</p>
+      <p>
       Cacher :<BR/>
       <label title="Ne pas dessiner les liens.">
         <input type="checkbox" id="showEdges" />
@@ -87,7 +88,7 @@
         <input type="radio" name="nodesSize" id="alexa" value="alexa" checked/>Classement de fréquentation (alexa.com)<BR/>
         <input type="radio" name="nodesSize" id="pagerank" value="pageranl"  />Classement Pagerank (influence au sein du réseau)<BR/>
       </label>
-      <br>
+      </p>
       <!-- Here is the user search field -->
       <form action="/" method="post" class="search-nodes-form">
         <fieldset id="search-nodes-fieldset">
@@ -375,8 +376,8 @@ sigma.parsers.gexf(
 //    });
     
     // reset zoom
-//    document.getElementById('recenter-camera').addEventListener('click', 
-//    function() {
+ //   document.getElementById('recenter-camera').addEventListener('click', 
+ //   function() {
 //      s.cameras[0].goTo({
 //                x: 0,
 //                y: 0,
