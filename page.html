@@ -53,6 +53,8 @@
     color: #333 ;
     font-size: 90%;
   }
+  
+  #unzoom {padding: 15px;}
   </style>
   <!--[if lt IE 8]>
     <link rel="stylesheet" href="/assets/stylesheets/social_foundicons_ie7.css">
@@ -63,7 +65,6 @@
 <div id="sigma-container">
   <div id="controls" class="bg">
     <h1>La complosphère française</h1>    
-<p></p>
 <p></p>
     <p>
       Cliquez sur un point pour montrer un sous-réseau. Les nœuds colorés en rouge correspondent aux sites possédant des liens vers le site sélectionné.</p>
@@ -86,16 +87,20 @@
         <input type="radio" name="nodesSize" id="indegree" value="indegree"  />Nombre de liens entrants<BR/>
         <input type="radio" name="nodesSize" id="outdegree" value="outdegree"  />Nombre de liens sortants<BR/>
         <input type="radio" name="nodesSize" id="alexa" value="alexa" checked/>Classement de fréquentation (alexa.com)<BR/>
-        <input type="radio" name="nodesSize" id="pagerank" value="pageranl"  />Classement Pagerank (influence au sein du réseau)<BR/>
+        <input type="radio" name="nodesSize" id="pagerank" value="pagerank"  />Classement Pagerank (influence au sein du réseau)<BR/>
       </label>
-      </p>
       <!-- Here is the user search field -->
       <form action="/" method="post" class="search-nodes-form">
         <fieldset id="search-nodes-fieldset">
           <div></div>
         </fieldset>
       </form>
-<p></p>
+      <BR/>
+      <label title = "Dézoomer" id="unzoom">
+      <input type="button" name="recenter-camera" id="recenter-camera" value="Dé-zoomer"/>
+      </label>
+  </p>
+
 <p><a href="https://twitter.com/intent/tweet?original_referer=https%3A%2F%2Fabout.twitter.com%2Ffr%2Fresources%2Fbuttons&text=La%20complosph%C3%A8re%20fran%C3%A7aise%2C&tw_p=tweetbutton&url=http%3A%2F%2Fwww.joelgombin.fr%2Fcomplosphere%2Fpage.html&via=joelgombin" class="button" title="Partager sur Twitter."><i class="fa fa-twitter"></i> Tweeter</a>&nbsp;&nbsp;<a href="https://github.com/joelgombin/complosphere" class="button" title="Récupérer le code et les données sur GitHub."><i class="fa fa-github"></i> Code</a></p>
     <footer>
         <p>Données collectées en juillet 2014 par les crawlers <a href="http://www.uberlink.com/services">VOSON</a> et <a href="http://www.medialab.sciences-po.fr/fr/tools/hyphe/">Hyphe</a>. Kudos to François Briatte pour <a href='http://briatte.org/epam/'>son inspiration</a>.<br />
@@ -376,15 +381,15 @@ sigma.parsers.gexf(
 //    });
     
     // reset zoom
- //   document.getElementById('recenter-camera').addEventListener('click', 
- //   function() {
-//      s.cameras[0].goTo({
-//                x: 0,
-//                y: 0,
-//                angle: 0,
-//                ratio: 1
-//              });
-//    });
+   document.getElementById('recenter-camera').addEventListener('click', 
+   function() {
+      s.cameras[0].goTo({
+                x: 0,
+                y: 0,
+                angle: 0,
+                ratio: 1
+              });
+    });
    
    $sig = new Array();
     s.graph.nodes().forEach(function(n) {
