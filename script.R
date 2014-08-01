@@ -18,14 +18,16 @@ reseau <- delete.vertices(reseau, v=grep("(acrimed)|(bastamag)|(christianophobie
 
 write.csv(data.frame(url = V(reseau)$url), file="/media/Data/Dropbox/Thèse/counterpoints/complosphère/web/urlsNettoyesJuillet2014.csv", row.names=FALSE)
 # on enrichit les données dans le CSV, et on le réimporte...
-data <- read.csv("/media/Data/Dropbox/Thèse/counterpoints/complosphère/web/reseauJuillet2014.csv", sep=",", stringsAsFactor=FALSE)
-
-V(reseau)$themes <- whisker::whisker.escape(data[match(V(reseau)$url, data$url), "Themes"])
-V(reseau)$themes[is.na(V(reseau)$themes)] <- ""
+# data <- read.csv("/media/Data/Dropbox/Thèse/counterpoints/complosphère/web/reseauJuillet2014.csv", sep=",", stringsAsFactor=FALSE)
+data <- read.csv("/media/Data/Dropbox/Thèse/counterpoints/complosphère/web/reseauAoût2014.csv", sep=",", stringsAsFactor=FALSE)
+# V(reseau)$themes <- whisker::whisker.escape(data[match(V(reseau)$url, data$url), "Themes"])
+# V(reseau)$themes[is.na(V(reseau)$themes)] <- ""
 V(reseau)$description <- whisker::whisker.escape(data[match(V(reseau)$url, data$url), "Description"])
 V(reseau)$description[is.na(V(reseau)$description)] <- ""
 V(reseau)$ressources <- whisker::whisker.escape(data[match(V(reseau)$url, data$url), "Ressources"])
 V(reseau)$ressources[is.na(V(reseau)$ressources)] <- ""
+V(reseau)$nom <- whisker::whisker.escape(data[match(V(reseau)$url, data$url), "Nom"])
+V(reseau)$nom[is.na(V(reseau)$nom)] <- ""
 V(reseau)$alexa <- whisker::whisker.escape(data[match(V(reseau)$url, data$url), "Alexa"])
 V(reseau)$alexa <- 1 /log(as.integer(V(reseau)$alexa))
 V(reseau)$alexa[is.na(V(reseau)$alexa)] <- 0.01
@@ -84,7 +86,7 @@ write.gexf(nodes=data.frame(id = V(reseau2)$url, label=V(reseau2)$url),
                                           x=V(reseau2)$x, y=V(reseau2)$y, z=as.integer(NA)),
                               size=as.numeric(V(reseau2)$alexa),
                               color=couleurs),
-           output="reseauJuillet2014.gexf",
+           output="reseauAout2014.gexf",
            defaultedgetype="directed")
            
 

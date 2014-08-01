@@ -167,7 +167,7 @@ sigma.classes.graph.addMethod('getNeighborsCount', function(nodeId) {
 });
 
 sigma.parsers.gexf(
-  'reseauJuillet2014.gexf',
+  'reseauAout2014.gexf',
   { // Here is the ID of the DOM element that
     // will contain the graph:
     container: 'sigma-container'
@@ -217,7 +217,7 @@ sigma.parsers.gexf(
       // node color
       var rgba = e.data.node.color;
 
-      profile = "<a href='http://" + e.data.node.attributes['url'] + "' title='Voir le site (nouvelle fenêtre)' target='_blank'>";
+      profile = e.data.node.attributes['nom'] + ' (' + e.data.node.attributes['url'] + ')';
       // parltrack = "<a href='http://parltrack.euwiki.org/mep/" + e.data.node.attributes['label'] + "' title='Go to Parltrack profile (new window)' target='_blank'";
       
       theme = (e.data.node.attributes['themes'] === "") ? '' : '<p>Thèmes : ' + e.data.node.attributes['themes'] + '</p>';
@@ -226,7 +226,7 @@ sigma.parsers.gexf(
       
       ressources = (e.data.node.attributes['ressources'] === "") ? '' : '<p>Ressources : ' + e.data.node.attributes['ressources'] +  '</p>';
       
-      document.getElementById('caption').innerHTML =  profile + ' </a> <h2>' + e.data.node.attributes['url'] + '</h2> <span style="color:' + rgba.replace('0.3)', '1)') + ';"></span>' + theme + description + ressources;
+      document.getElementById('caption').innerHTML =  '<h2>' + profile + '</h2> <span style="color:' + rgba.replace('0.3)', '1)') + ';"></span>' + description + ressources;
       
       // Since the data has been modified, we need to
       // call the refresh method to make the colors
@@ -413,7 +413,7 @@ sigma.parsers.gexf(
 
     $('#search-nodes-fieldset #search-nodes').smartAutoComplete({
       source: s.graph.nodes().map(function(n){
-        return n.label;
+        return n.attributes['nom'];
       })
     }).bind('itemSelect', function(e) {
       var label = e.smartAutocompleteData.item.innerText;
@@ -422,7 +422,7 @@ sigma.parsers.gexf(
 
       var id = "unknown";
       s.graph.nodes().forEach(function(n) {
-        if (n.label == label) {
+        if (n.attributes['nom'] == label) {
           id = n.id;
         }
       });
@@ -430,7 +430,7 @@ sigma.parsers.gexf(
       console.log(id);
 
       s.graph.nodes().forEach(function(n) {
-        if (n.label == label ) {
+        if (n.id == id ) {
           console.log('found');
           n.color = '#E61616';
         }
