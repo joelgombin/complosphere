@@ -447,10 +447,17 @@ sigma.parsers.gexf(
         }
       });
 
+    // protect search field
+    //
+
       s.refresh();
       
     });
    
+       $('form.search-nodes-form').submit(function(e) {
+      e.preventDefault();
+    });
+
    
   }
 );
