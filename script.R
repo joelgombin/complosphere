@@ -19,7 +19,7 @@ reseau <- delete.vertices(reseau, v=grep("(acrimed)|(bastamag)|(christianophobie
 write.csv(data.frame(url = V(reseau)$url), file="/media/Data/Dropbox/Thèse/counterpoints/complosphère/web/urlsNettoyesJuillet2014.csv", row.names=FALSE)
 # on enrichit les données dans le CSV, et on le réimporte...
 # data <- read.csv("/media/Data/Dropbox/Thèse/counterpoints/complosphère/web/reseauJuillet2014.csv", sep=",", stringsAsFactor=FALSE)
-data <- read.csv("/media/Data/Dropbox/Thèse/counterpoints/complosphère/web/reseauAoût2014.csv", sep=",", stringsAsFactor=FALSE)
+data <- read.csv("/media/Data/Dropbox/Thèse/counterpoints/complosphère/web/reseau20Août2014.csv", sep=";", stringsAsFactor=FALSE)
 # V(reseau)$themes <- whisker::whisker.escape(data[match(V(reseau)$url, data$url), "Themes"])
 # V(reseau)$themes[is.na(V(reseau)$themes)] <- ""
 V(reseau)$description <- whisker::whisker.escape(data[match(V(reseau)$url, data$url), "Description"])
@@ -38,7 +38,7 @@ reseau2 <- simplify(reseau2, remove.multiple = FALSE, remove.loops = TRUE)
 # V(reseau2)$y <- layout.fruchterman.reingold(reseau2, weights=E(reseau2)$weight)[,2]
 # # plot(reseau2)
 
-set.seed(1)
+# set.seed(1)
 coords <- layout.kamada.kawai(reseau2, weights=E(reseau2)$weight)
 V(reseau2)$x <- coords[,1]
 V(reseau2)$y <- coords[,2]
